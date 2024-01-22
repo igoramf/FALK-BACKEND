@@ -5,12 +5,12 @@ const config = require('@config');
 const databaseConfig = require('./database/database');
 
 async function startServer() {
-  databaseConfig();
+  await databaseConfig();
   app.listen(config.app.port, (err) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`Server Up: port ${config.app.port}`);
+    console.log(`Server on: port ${config.app.port}`);
   });
 }
 

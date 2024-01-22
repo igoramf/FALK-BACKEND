@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('@config');
 
-module.exports = () =>  {
+module.exports = async () =>  {
     let DB_URL;
     if (process.env.NODE_ENV === "prod") {
         console.log('Conectando com banco de produção...')
@@ -19,5 +19,7 @@ module.exports = () =>  {
         console.log("Erro na conexão com o banco de dados: " + err);
     });
 
-    mongoose.connect(DB_URL);
+    mongoose.connect(DB_URL, {
+        serverSelectionTimeoutMS: 30000
+    });
 }

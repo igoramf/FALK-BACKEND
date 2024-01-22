@@ -3,6 +3,9 @@ var cors = require('cors')
 const bodyParser = require('body-parser');
 const app = express();
 
+//ROUTES
+const UserRoutes = require('./routes/userRoutes')
+
 app.use(express.json());
 app.use(cors({
     origin: '*'
@@ -10,6 +13,6 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/', (req, res) => res.send("teste"));
+app.use('/user', UserRoutes);
 
 module.exports = app;
