@@ -1,7 +1,7 @@
 const User = require("../../model/User");
 const { HTTP_CODE_CREATED, HTTP_CODE_BAD_REQUEST, HTTP_CODE_INTERNAL_SERVER_ERROR } = require("../../utils/httpStatus");
 
-async function createUser(req, res) {
+async function register(req, res) {
     let {
         name,
         email,
@@ -37,4 +37,4 @@ async function createUser(req, res) {
     }
 }
 
-module.exports = createUser;
+module.exports = register;
