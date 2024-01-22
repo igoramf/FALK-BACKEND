@@ -1,6 +1,7 @@
 const { HTTP_CODE_UNAUTHORIZED } = require("../utils/httpStatus");
 const JWT = require('jsonwebtoken')
 const dotenv = require("dotenv").config()
+const User = require("../model/User")
 
 
 const Auth ={
@@ -16,6 +17,10 @@ const Auth ={
                         token, 
                         process.env.JWT_SECRET_KEY
                     );
+                    const user = await User.findOne({ _id: decoded.idUser });
+
+                    if (!user)
+                        return res.status(404).send({ error: 'Usuário do Token não existe!' });
                     sucess = true
                 }catch (err){
                     return res.status(401).send({ error: 'Token inválido' });
