@@ -17,6 +17,7 @@ const Auth ={
                         token, 
                         process.env.JWT_SECRET_KEY
                     );
+                    
                     const user = await User.findOne({ _id: decoded.idUser });
 
                     if (!user)
