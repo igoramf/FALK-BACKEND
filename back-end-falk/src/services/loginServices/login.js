@@ -19,19 +19,14 @@ async function login(req, res){
             })
         }
 
-        const token = JWT.sign(
-            { 
-                idUser: user._id, 
-                email: user.email
-            },
-            process.env.JWT_SECRET_KEY,
-            { expiresIn: '3h'}
-        )
+        let token = signToken(user);
+        pushToken(user, token);
     
         return res.status(HTTP_CODE_OK).send({
             status: HTTP_CODE_OK,
             auth: true,
             data: {
+                id: user._id,
                 user: user.email,
                 token:  `Bearer ` + token
             }
@@ -43,6 +38,25 @@ async function login(req, res){
         })
     }
 
+}
+
+function signToken (user) {
+    return token = JWT.sign(
+        { 
+            idUser: user._id, 
+            email: user.email
+        },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: '3h'}
+    )
+}
+
+async function pushToken(user, token) {
+    let new_token_list = user.token_list;
+    new_token_list.push(token);
+    user = await User.findByIdAndUpdate(user._id, {
+      token_list: new_token_list,
+    });
 }
 
 module.exports = login;
