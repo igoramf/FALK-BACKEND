@@ -30,7 +30,8 @@ async function login(req, res){
                 user: user.email,
                 token:  `Bearer ` + token,
                 name: user.name,
-                phone: user.telefone
+                phone: user.telefone,
+                user: user.username
             }
         })
     }catch (e) {
