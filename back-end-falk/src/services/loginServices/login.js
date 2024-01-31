@@ -28,7 +28,9 @@ async function login(req, res){
             data: {
                 id: user._id,
                 user: user.email,
-                token:  `Bearer ` + token
+                token:  `Bearer ` + token,
+                name: user.name,
+                phone: user.telefone
             }
         })
     }catch (e) {
