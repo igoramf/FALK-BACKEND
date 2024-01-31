@@ -1,7 +1,8 @@
 const User = require("../../model/User");
 const { HTTP_CODE_CREATED, HTTP_CODE_BAD_REQUEST, HTTP_CODE_INTERNAL_SERVER_ERROR } = require("../../utils/httpStatus");
+const JWT = require("jsonwebtoken")
 
-async function createUser(req, res) {
+async function register(req, res) {
     let {
         name,
         email,
@@ -18,6 +19,7 @@ async function createUser(req, res) {
 
 
     try{
+        
         let user = await User.create({
             name,
             email,
@@ -25,10 +27,24 @@ async function createUser(req, res) {
             username,
             telefone
         });
+        
+        const token = JWT.sign(
+            { 
+                id: user._id, 
+                email: user.email
+            },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '3h'}
+        )
 
         return res.status(HTTP_CODE_CREATED).json({
+            status: HTTP_CODE_CREATED,
             message: "Usuário cadastrado com sucesso",
-            user: user
+            auth: true,
+            data: {
+                user: user,
+                token:  `Bearer ` + token
+            }
         })
     }catch (e){
         return res.status(HTTP_CODE_INTERNAL_SERVER_ERROR).json({
@@ -37,4 +53,4 @@ async function createUser(req, res) {
     }
 }
 
-module.exports = createUser;
+module.exports = register;

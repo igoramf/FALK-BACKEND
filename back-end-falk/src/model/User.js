@@ -23,6 +23,11 @@ const UserSchema = new Schema(
         telefone: {
             type: String,
             required: true
+        },
+        token_list: {
+            type: [String],
+            required: false,
+            default: [],
         }
     },
     {
