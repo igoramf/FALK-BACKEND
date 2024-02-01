@@ -6,6 +6,7 @@ const app = express();
 //ROUTES
 const UserRoutes = require('./routes/userRoutes')
 const loginRoutes = require("./routes/loginRoutes")
+const postRoutes = require("./routes/postRoutes")
 
 app.use(express.json());
 app.use(cors({
@@ -16,5 +17,6 @@ app.use(bodyParser.json());
 
 app.use('/', loginRoutes);
 app.use('/user', UserRoutes);
+app.use('/post', )
 
 module.exports = app;
