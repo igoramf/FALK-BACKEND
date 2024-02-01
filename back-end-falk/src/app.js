@@ -17,6 +17,6 @@ app.use(bodyParser.json());
 
 app.use('/', loginRoutes);
 app.use('/user', UserRoutes);
-app.use('/post', )
+app.use('/post', postRoutes);
 
 module.exports = app;
