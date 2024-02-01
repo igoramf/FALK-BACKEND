@@ -25,7 +25,7 @@ async function createPost(req, res){
         
     } catch (error) {
         return res.status(HTTP_CODE_INTERNAL_SERVER_ERROR).json({
-            message: e
+            message: "Erro ao criar o post"
           });
     }
 
