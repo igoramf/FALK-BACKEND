@@ -4,6 +4,8 @@ const Auth = require("../middlewares/auth")
 const router = require('express').Router();
 
 
-router.post("/", Auth, commentController.createComment)
+router.post("/", Auth, commentController.createComment);
+
+router.delete("/:commentId", Auth, commentController.delete);
 
 module.exports = router;

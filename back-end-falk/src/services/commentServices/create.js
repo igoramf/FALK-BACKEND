@@ -9,7 +9,7 @@ const {
     HTTP_CODE_CREATED
   } = require("../../utils/httpStatus.js");
 
-async function createPost(req, res){
+async function createComment(req, res){
     try {
         const data = {
             postId,
@@ -38,4 +38,4 @@ async function createPost(req, res){
 
 }
 
-module.exports = createPost
+module.exports = createComment
