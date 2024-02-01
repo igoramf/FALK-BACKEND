@@ -1,3 +1,4 @@
+const Comment = require("../../model/Comment.js");
 const Post = require("../../model/Post.js");
 
 const {
@@ -11,22 +12,27 @@ const {
 async function createPost(req, res){
     try {
         const data = {
-            imageUrl,
+            postId,
             createdBy,
             text
         } = req.body
 
-        let post = await Post.create(data)
+        const post = await Post.findById(data.postId);
+        let comment = await Comment.create(data);
+
+        post.comments.push(comment._id);
+
+        await post.save();
 
         return res.status(HTTP_CODE_CREATED).json({
             status: HTTP_CODE_CREATED,
-            message: "Post criado com sucesso",
-            data: post
+            message: "Comentário criado com sucesso",
+            data: comment
         })
         
     } catch (error) {
         return res.status(HTTP_CODE_INTERNAL_SERVER_ERROR).json({
-            message: "Erro ao criar o post"
+            message: "Erro ao criar o comentário"
           });
     }
 
