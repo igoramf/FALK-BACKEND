@@ -20,7 +20,7 @@ async function createPost(req, res){
         const post = await Post.findById(data.postId);
         let comment = await Comment.create(data);
 
-        post.comments.push(comment._id);
+        post?.comments.push(comment._id);
 
         await post.save();
 
