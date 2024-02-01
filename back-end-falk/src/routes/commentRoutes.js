@@ -5,3 +5,5 @@ const router = require('express').Router();
 
 
 router.post("/", Auth, commentController.createComment)
+
+module.exports = router;

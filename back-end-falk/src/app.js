@@ -7,6 +7,7 @@ const app = express();
 const UserRoutes = require('./routes/userRoutes')
 const loginRoutes = require("./routes/loginRoutes")
 const postRoutes = require("./routes/postRoutes")
+const commentRoutes = require("./routes/commentRoutes")
 
 app.use(express.json());
 app.use(cors({
@@ -18,5 +19,6 @@ app.use(bodyParser.json());
 app.use('/', loginRoutes);
 app.use('/user', UserRoutes);
 app.use('/post', postRoutes);
+app.use("/comment", commentRoutes);
 
 module.exports = app;
