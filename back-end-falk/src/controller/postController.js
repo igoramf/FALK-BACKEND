@@ -1,5 +1,6 @@
 const getAllPost = require("../services/postServices/getAll")
-const createPost = require("../services/postServices/createPost")
+const createPost = require("../services/postServices/createPost");
+const likePost = require("../services/postServices/likePost")
 
 
 module.exports = {
@@ -9,6 +10,9 @@ module.exports = {
     },
     async createPost(req, res){
         return createPost(req, res);
+    },
+    async saveLikes(req, res){
+        return likePost(req, res);
     }
 
 }

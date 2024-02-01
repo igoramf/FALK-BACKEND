@@ -7,4 +7,6 @@ router.get('/', PostController.getAll);
 
 router.post("/create", Auth,  PostController.createPost);
 
+router.put("/like/:postId", Auth, PostController.saveLikes);
+
 module.exports = router;
