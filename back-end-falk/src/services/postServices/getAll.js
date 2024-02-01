@@ -9,7 +9,17 @@ const Post = require("../../model/Post.js");
 
 async function getAll(req, res){
     try {
-        const posts = await Post.find().populate("createdBy").populate("likes").populate("comments").sort({createdAt:-1});
+        const posts = await Post.find()
+        .populate("createdBy")
+        .populate("likes")
+        .populate({
+            path: "comments",
+            populate: {
+                path: "createdBy",
+                model: "User"
+            }
+        })
+        .sort({createdAt:-1});
 
         return res.status(HTTP_CODE_OK).send({
             status: HTTP_CODE_OK,
