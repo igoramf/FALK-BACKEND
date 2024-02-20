@@ -17,7 +17,7 @@ async function createCommunity(req, res){
             description
         } = req.body
 
-        const alreadyExits = await Community.find({name: communityName})
+        const alreadyExits = await Community.find({communityName})
 
         if(alreadyExits) return res.status(400).send({
             status: HTTP_CODE_BAD_REQUEST,
