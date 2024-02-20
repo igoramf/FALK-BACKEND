@@ -20,6 +20,13 @@ async function likePost(req, res){
             await updatePost.save();
         }
 
+        const userAlreadyLiked = post.likes.filter((item) => item == userId)
+
+        if(userAlreadyLiked) return res.status(HTTP_CODE_BAD_REQUEST).send({
+            status: HTTP_CODE_BAD_REQUEST,
+            message: "Esse usuário já curtiu esse post!"
+        })
+
         const updatedPost = await Post.findById(postId);
 
         isLike ? updatedPost.likes.push(userId) : updatedPost.likes.pop(userId);
