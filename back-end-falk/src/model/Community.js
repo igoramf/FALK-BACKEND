@@ -24,4 +24,4 @@ const communitySchema = new Schema({
     }
 )
 
-module.exports = model('Comment', commentSchema);
+module.exports = model('Community', communitySchema);
