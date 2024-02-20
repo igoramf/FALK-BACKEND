@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose")
 
 const communitySchema = new Schema({
-    name: {
+    communityName: {
         type: String,
         required: true
     },
