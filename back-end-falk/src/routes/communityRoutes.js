@@ -5,4 +5,6 @@ const router = require('express').Router();
 
 router.post("/", Auth,  comController.createCommunity);
 
+router.get("/", comController.getAllCommunity)
+
 module.exports = router;

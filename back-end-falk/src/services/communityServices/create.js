@@ -19,7 +19,7 @@ async function createCommunity(req, res){
 
         const alreadyExits = await Community.find({communityName})
 
-        if(alreadyExits) return res.status(400).send({
+        if(alreadyExits.length != 0) return res.status(400).send({
             status: HTTP_CODE_BAD_REQUEST,
             message: "Já existe comunidade com esse nome."
         })
