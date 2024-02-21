@@ -1,6 +1,7 @@
 const getAllPost = require("../services/postServices/getAll")
 const createPost = require("../services/postServices/createPost");
 const likePost = require("../services/postServices/likePost")
+const byCommunity = require("../services/postServices/getPostsByCommunity")
 
 
 module.exports = {
@@ -13,6 +14,9 @@ module.exports = {
     },
     async saveLikes(req, res){
         return likePost(req, res);
+    },
+    async getPostsByCommunity(req,res){
+        return byCommunity(req, res)
     }
 
 }
