@@ -9,7 +9,7 @@ const {
 
 async function getAll(req, res){
     try {
-        const communities = await Community.find().sort({createdAt:-1});
+        const communities = await Community.find().sort();
 
         return res.status(HTTP_CODE_OK).send({
             status: HTTP_CODE_OK,
