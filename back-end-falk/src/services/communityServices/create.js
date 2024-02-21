@@ -24,6 +24,8 @@ async function createCommunity(req, res){
             message: "Já existe comunidade com esse nome."
         })
 
+        data["users"] = [createdBy]
+
         const com = await Community.create(data)
 
         return res.status(HTTP_CODE_CREATED).send({

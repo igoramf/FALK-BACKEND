@@ -11,7 +11,7 @@ async function getOne(req, res){
     try {
 
         const { communityId } = req.params
-        const comm = await Community.findById(communityId)
+        const comm = await Community.findById(communityId).populate("users")
 
         if(!comm) return res.status.send({
             status: HTTP_CODE_BAD_REQUEST,
