@@ -9,4 +9,5 @@ router.post("/create", Auth,  PostController.createPost);
 
 router.put("/like/:postId", Auth, PostController.saveLikes);
 
+router.get("/community/:id", Auth, PostController.getPostsByCommunity)
 module.exports = router;

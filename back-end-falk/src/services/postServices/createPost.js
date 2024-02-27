@@ -13,7 +13,8 @@ async function createPost(req, res){
         const data = {
             imageUrl,
             createdBy,
-            text
+            text,
+            community
         } = req.body
 
         let post = await Post.create(data)

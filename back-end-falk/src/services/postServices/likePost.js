@@ -20,6 +20,7 @@ async function likePost(req, res){
             await updatePost.save();
         }
 
+
         const updatedPost = await Post.findById(postId);
 
         isLike ? updatedPost.likes.push(userId) : updatedPost.likes.pop(userId);
