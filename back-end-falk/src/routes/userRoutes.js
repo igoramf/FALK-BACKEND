@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const UserController = require('../controller/userController');
 const Auth  = require('../middlewares/auth');
+const { upload }  = require("../middlewares/multer")
 
 router.get('/:idUser',  Auth, UserController.getUser);
 
 router.get('/', Auth , UserController.getAll);
 
-router.post("/", UserController.uploadProfilePic)
+router.post("/upload-profile-pic", upload,  UserController.uploadProfilePic)
 
 
 module.exports = router;

@@ -20,17 +20,17 @@ const upload = multer({
 
 function checkFileType(file, cb){
     
-    const fileTypes = /jpeg|jpg|png|git/
+    const fileTypes = /jpeg|jpg|png|gif/
 
     const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
 
-    const mimeType = fileTypes.test(file.mimeType)
+    const mimeType = fileTypes.test(file.mimetype)
 
     if(mimeType && extName){
         return cb(null, true)
     }else{
         cb("Error: Images Only")
     }
-
-
 }
+
+module.exports = { upload, uploadMultiple }
