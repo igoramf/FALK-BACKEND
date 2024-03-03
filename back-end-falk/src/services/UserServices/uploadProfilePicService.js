@@ -10,24 +10,28 @@ const { auth } = require("../../database/firebase.config.js")
 
 const User = require("../../model/User.js");
 
-const { getStorage, ref, uploadBytesResumable } = require("firebase/storage")
-const { signInWithEmailAndPassowrd, createUserWithEmailAndPassoword } = require("firebase/auth")
+const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require("firebase/storage")
+const { signInWithEmailAndPassword, createUserWithEmailAndPassoword } = require("firebase/auth")
 
 const uploadProfilePic = async (req, res) => {
     const file = {
         type: req.file.mimetype,
-        buffer: req.file.buffer
+        buffer: req.file.buffer,
+        file: req.file
     }
+    console.log(req.file)
+    const buildImage = await sendToFireBase(file, "single")
     try {
-        const buildImage = await uploadImage(file, "single")
         return res.status(HTTP_CODE_CREATED).send({
             status: HTTP_CODE_CREATED,
-            imageName: buildImage
+            imageName: buildImage,
+            fileName: req.file.originalname,
+            message: "Uploaded file to Storage"
         })
-    } catch (error) {
+    } catch (e) {
         return res.status(HTTP_CODE_BAD_REQUEST).send({
             status: HTTP_CODE_BAD_REQUEST,
-            error: error
+            error: e
         })
     }
 }
@@ -36,18 +40,21 @@ async function sendToFireBase(file, quantity){
     
     const storageFB = getStorage();
 
-    await signInWithEmailAndPassowrd(auth, process.env.FIREBASE_USER, process.env.FIREBASE_AUTH)
+    await signInWithEmailAndPassword(auth, process.env.FIREBASE_USER, process.env.FIREBASE_AUTH)
 
+    
     if(quantity == "single"){
         const dateTime = Date.now()
         const filename = `images/${dateTime}`
         const storageRef = ref(storageFB, filename)
         const metadata = {
-            contentType: file
+            contentType: file.type
         }
-        await uploadBytesResumable(storageRef, file.buffer, metadata)
-        console.log(filename)
-        return filename
+        const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata)
+
+        const downloadURL = await getDownloadURL(snapshot.ref)
+
+        return downloadURL
     }else{
         return null
     }
