@@ -14,14 +14,30 @@ const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require("fireb
 const { signInWithEmailAndPassword, createUserWithEmailAndPassoword } = require("firebase/auth")
 
 const uploadProfilePic = async (req, res) => {
-    const file = {
-        type: req.file.mimetype,
-        buffer: req.file.buffer,
-        file: req.file
-    }
-    console.log(req.file)
-    const buildImage = await sendToFireBase(file, "single")
     try {
+        const { idUser } = req.body
+
+        const user = await User.findById(idUser)
+        if(!user) return res.status(HTTP_CODE_BAD_REQUEST).send({
+            status: HTTP_CODE_BAD_REQUEST,
+            message: "Informe o id do usúario"
+        })
+        
+        if(!req.file) return res.status(HTTP_CODE_BAD_REQUEST).send({
+            status: HTTP_CODE_BAD_REQUEST,
+            message: "Informe o arquivo a ser armazenado"
+        })
+        
+        const file = {
+            type: req.file.mimetype,
+            buffer: req.file.buffer,
+            file: req.file
+        }
+        const buildImage = await sendToFireBase(file, "single")
+
+        user.profile_pic = buildImage
+        await user.save()
+
         return res.status(HTTP_CODE_CREATED).send({
             status: HTTP_CODE_CREATED,
             imageName: buildImage,

@@ -24,7 +24,7 @@ const UserSchema = new Schema(
             type: String,
             required: true
         },
-        profile_image: {
+        profile_pic: {
             type:String
         },
         token_list: {
