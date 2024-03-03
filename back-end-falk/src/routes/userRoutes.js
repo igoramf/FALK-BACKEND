@@ -6,5 +6,7 @@ router.get('/:idUser',  Auth, UserController.getUser);
 
 router.get('/', Auth , UserController.getAll);
 
+router.post("/", UserController.uploadProfilePic)
+
 
 module.exports = router;
