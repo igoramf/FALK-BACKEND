@@ -12,11 +12,11 @@ const uploadMultiple = multer({
 
 const upload = multer({
     storage: multer.memoryStorage(),
-    limits: {fileSize: 1000000},
+    limits: {fileSize: 100000000000},
     fileFilter: function (req, file, cb){
         checkFileType(file, cb);
     }
-}).single("image")
+}).single("file")
 
 function checkFileType(file, cb){
     
