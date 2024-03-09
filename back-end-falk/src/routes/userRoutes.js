@@ -3,7 +3,7 @@ const UserController = require('../controller/userController');
 const Auth  = require('../middlewares/auth');
 const { upload }  = require("../middlewares/multer")
 
-router.get('/:idUser',  Auth, UserController.getUser);
+router.get('/:username',  Auth, UserController.getUser);
 
 router.get('/', Auth , UserController.getAll);
 

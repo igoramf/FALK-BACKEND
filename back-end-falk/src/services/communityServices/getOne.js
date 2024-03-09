@@ -5,13 +5,15 @@ const {
     HTTP_CODE_BAD_REQUEST,
     HTTP_CODE_INTERNAL_SERVER_ERROR
   } = require("../../utils/httpStatus.js");
+const normalizeUsername = require("../../utils/normalizeUsername.js");
 
 
 async function getOne(req, res){
     try {
 
-        const { communityId } = req.params
-        const comm = await Community.findById(communityId).populate("users")
+        const { communityName } = req.params
+        communityName = normalizeUsername(communityName)
+        const comm = await Community.findOne({communityName: communityName}).populate("users")
 
         if(!comm) return res.status.send({
             status: HTTP_CODE_BAD_REQUEST,

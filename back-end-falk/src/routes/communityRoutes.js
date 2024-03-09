@@ -7,7 +7,7 @@ router.post("/", Auth,  comController.createCommunity);
 
 router.get("/", comController.getAllCommunity)
 
-router.get("/:communityId", Auth, comController.getOneCommunity)
+router.get("/:communityName", Auth, comController.getOneCommunity)
 
 
 module.exports = router;

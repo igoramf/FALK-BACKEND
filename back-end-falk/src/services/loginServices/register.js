@@ -16,8 +16,8 @@ async function register(req, res) {
     if(sameEmail) return res.status(HTTP_CODE_BAD_REQUEST).send({error: "Email já cadastrado."})
 
 
-    username = normalizeUsername(username)
-    let sameUsername = await User.findOne({username});
+    usernameNormalized = normalizeUsername(username)
+    let sameUsername = await User.findOne({username: usernameNormalized});
     if(sameUsername) return res.status(HTTP_CODE_BAD_REQUEST).send({error: "Username já cadastrado."});
 
 
