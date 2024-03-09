@@ -6,12 +6,16 @@ const {
   } = require("../../utils/httpStatus.js");
 
 const Post = require("../../model/Post.js");
+const Community = require("../../model/Community.js");
+const normalizeUsername = require("../../utils/normalizeUsername.js");
 
 async function getPostsByCommunity(req, res){
     try {
-        const { id } = req.params
+        let { communityName } = req.params
 
-        const posts = await Post.find({community: id})
+        const comm = await Community.findOne({communityName})
+
+        const posts = await Post.find({community: comm._id})
         .populate("createdBy")
         .populate("likes")
         .populate({

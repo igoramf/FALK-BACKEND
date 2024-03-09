@@ -11,8 +11,8 @@ const normalizeUsername = require("../../utils/normalizeUsername.js");
 async function getOne(req, res){
     try {
 
-        const { communityName } = req.params
-        communityName = normalizeUsername(communityName)
+        let { communityName } = req.params
+        
         const comm = await Community.findOne({communityName: communityName}).populate("users")
 
         if(!comm) return res.status.send({
