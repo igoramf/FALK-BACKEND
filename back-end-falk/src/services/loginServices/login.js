@@ -31,7 +31,8 @@ async function login(req, res){
                 token:  `Bearer ` + token,
                 name: user.name,
                 phone: user.telefone,
-                user: user.username
+                user: user.username,
+                profile_pic: user.profile_pic
             }
         })
     }catch (e) {
