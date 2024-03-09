@@ -17,6 +17,9 @@ const communitySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    profile_pic: {
+        type:String
     }
     },
     {

@@ -1,6 +1,7 @@
 const create = require("../services/communityServices/create")
 const getAll = require("../services/communityServices/getAll")
 const getOne = require("../services/communityServices/getOne")
+const upload = require("../services/communityServices/uploadProfilePic")
 
 module.exports = {
     async createCommunity(req,res){
@@ -12,6 +13,9 @@ module.exports = {
     },
     async getOneCommunity(req,res){
         return getOne(req, res)
+    },
+    async uploadProfilePic(req, res){
+        return upload(req,res)
     }
 
 }
