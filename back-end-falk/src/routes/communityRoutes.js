@@ -11,7 +11,7 @@ router.get("/", comController.getAllCommunity)
 router.get("/:communityName", Auth, comController.getOneCommunity)
 
 
-router.post("/upload-profile-pic", upload, Auth, UserController.uploadProfilePic)
+router.post("/upload-profile-pic", upload, Auth, comController.uploadProfilePic)
 
 
 module.exports = router;
