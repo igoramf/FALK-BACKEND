@@ -6,12 +6,18 @@ const {
   } = require("../../utils/httpStatus.js");
 
 const Post = require("../../model/Post.js");
+const User = require("../../model/User.js");
+const normalizeUsername = require("../../utils/normalizeUsername.js");
 
 async function getPostsByUser(req, res){
     try {
-        const { id } = req.params
+        let { username } = req.params
 
-        const posts = await Post.find({createdBy: id})
+        username = normalizeUsername(username)
+
+        const user = await User.findOne({username})
+
+        const posts = await Post.find({createdBy: user._id})
         .populate("createdBy")
         .populate("likes")
         .populate("community")
@@ -23,6 +29,7 @@ async function getPostsByUser(req, res){
             }
         })
         .sort({createdAt:-1});
+        console.log(user._id)
 
         return res.status(HTTP_CODE_OK).send({
             status: HTTP_CODE_OK,

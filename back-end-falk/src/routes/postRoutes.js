@@ -11,5 +11,5 @@ router.put("/like/:postId", Auth, PostController.saveLikes);
 
 router.get("/community/:id", Auth, PostController.getPostsByCommunity)
 
-router.get("/user/:id", Auth, PostController.getPostsByUser)
+router.get("/user/:username", Auth, PostController.getPostsByUser)
 module.exports = router;
