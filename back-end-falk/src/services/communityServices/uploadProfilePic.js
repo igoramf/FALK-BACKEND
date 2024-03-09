@@ -76,3 +76,5 @@ async function sendToFireBase(file, quantity){
     }
 
 }
+
+module.exports = uploadProfilePic;
