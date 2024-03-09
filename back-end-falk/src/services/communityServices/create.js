@@ -36,7 +36,7 @@ async function createCommunity(req, res){
         
     } catch (error) {
         return res.status(HTTP_CODE_INTERNAL_SERVER_ERROR).json({
-            message: "Erro ao criar o comentário"
+            message: "Erro ao criar o comunidade"
           });
     }
 
