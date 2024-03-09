@@ -1,6 +1,7 @@
 const User = require("../../model/User");
 const { HTTP_CODE_CREATED, HTTP_CODE_BAD_REQUEST, HTTP_CODE_INTERNAL_SERVER_ERROR } = require("../../utils/httpStatus");
 const JWT = require("jsonwebtoken")
+const normalizeUsername = require("../../utils/normalizeUsername")
 
 async function register(req, res) {
     let {
@@ -14,6 +15,8 @@ async function register(req, res) {
     let sameEmail = await User.findOne({email})
     if(sameEmail) return res.status(HTTP_CODE_BAD_REQUEST).send({error: "Email já cadastrado."})
 
+
+    username = normalizeUsername(username)
     let sameUsername = await User.findOne({username});
     if(sameUsername) return res.status(HTTP_CODE_BAD_REQUEST).send({error: "Username já cadastrado."});
 

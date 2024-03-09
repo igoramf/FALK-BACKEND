@@ -6,14 +6,17 @@ const {
   } = require("../../utils/httpStatus.js");
 
 const User = require("../../model/User.js");
+const normalizeUsername = require("../../utils/normalizeUsername.js");
 
 async function getUser(req, res){
-    let userId = req.params.idUser
+    let username = req.params.username
+
+    username = normalizeUsername(username)
 
     try {
-        let user = await User.findById(userId)
+        let user = await User.findOne({username})
     
-        if(!user) return res.status(HTTP_CODE_BAD_REQUEST).send({error: "Id não encontrado."});
+        if(!user) return res.status(HTTP_CODE_BAD_REQUEST).send({error: "usúario não encontrado."});
     
         return res.status(HTTP_CODE_OK).send({data: user})
     } catch (error) {
