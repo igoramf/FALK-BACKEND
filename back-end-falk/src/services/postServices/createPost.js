@@ -1,5 +1,6 @@
 const Post = require("../../model/Post.js");
 const sendToFireBase = require("../firebase.js")
+const User = require("../../model/User.js")
 
 const {
     HTTP_CODE_OK,
@@ -17,12 +18,24 @@ async function createPost(req, res){
             community
         } = req.body
 
-        
         const file = {
             type: req.file.mimetype,
             buffer: req.file.buffer,
             file: req.file
         }
+        
+        const user = await User.findById(createdBy)
+        if(!user) return res.status(HTTP_CODE_BAD_REQUEST).send({
+            status: HTTP_CODE_BAD_REQUEST,
+            message: "Informe o id do usúario"
+        })
+        
+        if(!req.file) return res.status(HTTP_CODE_BAD_REQUEST).send({
+            status: HTTP_CODE_BAD_REQUEST,
+            message: "Informe o arquivo a ser armazenado"
+        })
+
+        
         const buildImage = await sendToFireBase(file, "single")
         
         data.imageUrl = buildImage
