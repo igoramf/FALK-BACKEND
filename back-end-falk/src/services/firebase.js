@@ -1,4 +1,4 @@
-const { auth } = require("../../database/firebase.config.js")
+const { auth } = require("../database/firebase.config")
 
 const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require("firebase/storage")
 const { signInWithEmailAndPassword, createUserWithEmailAndPassoword } = require("firebase/auth")
