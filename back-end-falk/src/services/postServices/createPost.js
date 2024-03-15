@@ -18,10 +18,15 @@ async function createPost(req, res){
             community
         } = req.body
 
-        const file = {
-            type: req.file.mimetype,
-            buffer: req.file.buffer,
-            file: req.file
+        if(req.file){
+            const file = {
+                type: req.file.mimetype,
+                buffer: req.file.buffer,
+                file: req.file
+            }
+            const buildImage = await sendToFireBase(file, "single")
+        
+            data.imageUrl = buildImage
         }
         
         const user = await User.findById(createdBy)
@@ -30,15 +35,6 @@ async function createPost(req, res){
             message: "Informe o id do usúario"
         })
         
-        if(!req.file) return res.status(HTTP_CODE_BAD_REQUEST).send({
-            status: HTTP_CODE_BAD_REQUEST,
-            message: "Informe o arquivo a ser armazenado"
-        })
-
-        
-        const buildImage = await sendToFireBase(file, "single")
-        
-        data.imageUrl = buildImage
 
         let post = await Post.create(data)
         
